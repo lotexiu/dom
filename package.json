@@ -1,0 +1,61 @@
+{
+  "name": "@lotexiu/dom",
+  "version": "1.0.0",
+  "private": false,
+  "license": "MIT",
+  "description": "Ponte entre @lotexiu/typescript e o DOM, sem framework: aplica as partes dos controles headless, prende foco, detecta clique fora, posiciona flutuantes e liga tokens a variáveis CSS.",
+  "keywords": [
+    "dom",
+    "headless",
+    "signals",
+    "lotexiu"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "pnpm clean && pnpm docs:check && vite build && tsc -p tsconfig.json && pnpm dist:prepare",
+    "clean": "rm -rf dist",
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "docs:ast": "tsx --tsconfig ../typescript/tsconfig.json ../typescript/src/.scripts/doc/generate.ts",
+    "docs:check": "tsx --tsconfig ../typescript/tsconfig.json ../typescript/src/.scripts/doc/generate.ts --check",
+    "docs:strict": "tsx --tsconfig ../typescript/tsconfig.json ../typescript/src/.scripts/doc/generate.ts --check --require-docs",
+    "dist:prepare": "tsx --tsconfig ../typescript/tsconfig.json ../typescript/src/.scripts/publish/prepare.ts",
+    "release": "pnpm build && npm publish ./dist --access public"
+  },
+  "peerDependencies": {
+    "@lotexiu/typescript": "^2.0.0"
+  },
+  "devDependencies": {
+    "@lotexiu/typescript": "workspace:*",
+    "@lotexiu/typescript-config": "workspace:*",
+    "jsdom": "*",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.9",
+    "tsx": "^4.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lotexiu/dom"
+  },
+  "homepage": "https://github.com/lotexiu/dom#readme"
+}
